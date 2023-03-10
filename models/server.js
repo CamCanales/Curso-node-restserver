@@ -1,5 +1,6 @@
 const express = require('express')
 const cors = require('cors');
+const { dbConnection } = require('../database/config');
 
 class Server {
 
@@ -8,12 +9,20 @@ class Server {
         this.port = process.env.PORT;
         this.usuariosPath = '/api/usuarios';
 
+        //CONECTAR A BASE DE DATOS (MONGO)
+        this.conectarDB();
+
         //Middlewares (son funciones que añadiran otra funcionalidad al server)
         this.middlewares();
         //rutas de mi aplicacion 
         this.routes();
     }
 
+    async conectarDB(){
+        await dbConnection();
+    }
+
+    //----> MIDDLEWARE ES UNA FUNCION QUE SE LLAMA ANTES DE UN CONTROLADOR O ANTES DE CONTINUAR CON LA PETICION DE EJECUCIONES
     middlewares(){
 
         //CORS
