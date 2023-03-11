@@ -33,7 +33,8 @@ const UsuarioSchema = Schema({
 });
 
 UsuarioSchema.methods.toJSON = function() {
-    const {__v, password, rol,  ...usuario} = this.toObject(); //----> DESESTRUCTURA EL OBJETO; QUITANDO LOS ATRIBUTOS "__V", "PASSWORD" Y "ROL" PARA DEVOLVER EL OBJETO "USUARIO" FINALMENTE
+    const {__v, password, rol, _id, ...usuario} = this.toObject(); //----> DESESTRUCTURA EL OBJETO; QUITANDO LOS ATRIBUTOS "__V", "PASSWORD" ,"ROL" y "_ID" PARA DEVOLVER EL OBJETO "USUARIO" FINALMENTE
+    usuario.uid = _id;
     return usuario;  
 }
 
