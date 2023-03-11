@@ -1,7 +1,7 @@
 const { Router } = require('express');
 const { check } = require('express-validator');
 const { validarCampos } = require('../middlewares/validar-campos');
-const { login } = require('../controllers/auth');
+const { login, googleSignIn } = require('../controllers/auth');
 
 
 const router = Router();
@@ -11,5 +11,11 @@ router.post('/login', [
     check('password', 'La contraseña es obligatorio').not().isEmpty(),
     validarCampos
 ], login);
+
+// SI ENTRA A RUTA AUTH/GOOGLE VALIDARA ID TOKEN DEL USUARIO; SINO ENVIARA ERROR 
+router.post('/google', [
+    check('id_token', 'id_Token de google es necesario').not().isEmpty(),
+    validarCampos
+], googleSignIn);
 
 module.exports = router;
